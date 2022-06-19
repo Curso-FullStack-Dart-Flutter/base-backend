@@ -13,3 +13,6 @@ dependencies:
   mysql1: ^0.19.2
   shelf: ^1.2.0
   shelf_router: ^1.1.3
+
+  commons_core:
+    path: ./packages/commons/commons-core
