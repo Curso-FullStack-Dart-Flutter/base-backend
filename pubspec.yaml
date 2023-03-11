@@ -10,7 +10,7 @@ environment:
 dev_dependencies:
   lints: ^1.0.0
 dependencies: 
-  mysql1: ^0.19.2
+  mysql1: ^0.20.0
   shelf: ^1.2.0
   shelf_router: ^1.1.3
 

@@ -7,8 +7,8 @@ import 'package:commons_core/commons_core.dart';
 import 'core/database/database_mysql_adpter.dart';
 
 void main(List<String> arguments) async {
-  // await DatabaseMySqlAdpter()
-  //     .query("insert into tb_permissoes(nome, status) values ('ADMIN', 'A')");
+  await DatabaseMySqlAdpter()
+      .query("insert into tb_permissoes(nome, status) values ('ADMIN', 'A')");
   print(await DatabaseMySqlAdpter().query('select * from tb_permissoes'));
 
   // await serve(
