@@ -16,7 +16,7 @@ class UserController extends Controller {
   Handler getHandler({List<Middleware>? middlewares, bool isSecurity = false}) {
     final Router router = Router();
 
-    router.get('/users', (Request res) async {
+    router.get('/users', (Request req) async {
       List<User> users = await _userService.getAllUsers();
       List<Map> usersMap =
           users.map((User user) => UserDto.toMap(user)).toList();
@@ -24,6 +24,14 @@ class UserController extends Controller {
         jsonEncode(usersMap),
         headers: {'content-type': 'application/json'},
       );
+    });
+
+    router.post('/user', (Request req) async {
+      var body = await req.readAsString();
+      if (body.isEmpty) return Response(400);
+      UserDto dto = UserDto.fromRequest(jsonDecode(body));
+      var result = await _userService.saveUser(dto);
+      return Response(result ? 201 : 500);
     });
 
     return createHandler(
