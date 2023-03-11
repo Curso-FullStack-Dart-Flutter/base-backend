@@ -1,11 +1,35 @@
+import 'dart:convert';
+
+import 'package:shelf/shelf.dart';
+import 'package:shelf_router/shelf_router.dart';
+
+import '../../core/web/controller.dart';
+import '../../domain/models/user.dart';
 import '../../domain/ports/inputs/user_service.dart';
+import '../dtos/user_dto.dart';
 
-class UserController {
+class UserController extends Controller {
   final UserService _userService;
-
   UserController(this._userService);
 
-  getUsers() {
-    _userService.getAllUsers().then((value) => value.forEach(print));
+  @override
+  Handler getHandler({List<Middleware>? middlewares, bool isSecurity = false}) {
+    final Router router = Router();
+
+    router.get('/users', (Request res) async {
+      List<User> users = await _userService.getAllUsers();
+      List<Map> usersMap =
+          users.map((User user) => UserDto.toMap(user)).toList();
+      return Response.ok(
+        jsonEncode(usersMap),
+        headers: {'content-type': 'application/json'},
+      );
+    });
+
+    return createHandler(
+      router: router,
+      isSecurity: isSecurity,
+      middlewares: middlewares,
+    );
   }
 }
