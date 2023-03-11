@@ -4,13 +4,12 @@ import '../../domain/models/user.dart';
 class UserMapper implements Mapper<User> {
   @override
   User toDomain(Map map) => User(
-        id: map['id'],
-        nome: map['nome'],
-        sobrenome: map['sobrenome'],
-        dtNascimento: map['dataNasc'],
-        status: map['status'],
-        documento: map['documento'],
-        email: map['email'],
-        cidade: map['cidade'],
+        map['nome'],
+        map['sobrenome'],
+        map['dataNasc'],
+        map['status'],
+        map['documento'],
+        map['email'],
+        map['cidade'],
       );
 }

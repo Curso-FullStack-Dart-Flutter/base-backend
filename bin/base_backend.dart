@@ -3,6 +3,7 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 
 import 'package:commons_core/commons_core.dart';
 
+import 'application/dtos/user_dto.dart';
 import 'application/web/UserController.dart';
 import 'core/database/database.dart';
 import 'core/database/database_mysql_adpter.dart';
@@ -20,6 +21,20 @@ void main(List<String> arguments) async {
       UserRepositoryImp(_database, _userMapper);
   final UserService _userService = UserServiceImp(_userRepository);
   final UserController _userController = UserController(_userService);
+
+  _userService
+      .saveUser(UserDto(
+        'Teste Final',
+        'SobreNome',
+        DateTime.utc(1944, 6, 6),
+        'A',
+        'documento123',
+        'falhaminha@cicrano.com',
+        'cidade',
+        'password123',
+        'token45435',
+      ))
+      .then((value) => print(value));
 
   var cascadeHandler = Cascade().add(_userController.getHandler()).handler;
   var handler =
