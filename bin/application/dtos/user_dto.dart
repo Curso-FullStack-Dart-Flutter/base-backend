@@ -1,3 +1,5 @@
+import 'package:password_dart/password_dart.dart';
+
 import '../../domain/models/user.dart';
 
 class UserDto extends User {
@@ -18,7 +20,6 @@ class UserDto extends User {
     this.id = 0,
   ]);
 
-  //TODO: Refatorar aqui
   static Map toMap(User user) => {
         'nome': user.nome,
         'sobrenome': user.sobrenome,
@@ -34,7 +35,7 @@ class UserDto extends User {
         map['documento'],
         map['email'],
         map['cidade'],
-        map['password'],
+        Password.hash(map['password'], PBKDF2()),
         map['deviceToken'],
       );
 }

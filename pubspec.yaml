@@ -16,3 +16,5 @@ dependencies:
 
   commons_core:
     path: ./packages/commons/commons-core
+  dart_jsonwebtoken: ^2.7.1
+  password_dart: ^2.0.1
