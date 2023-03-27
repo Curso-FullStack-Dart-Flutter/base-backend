@@ -11,6 +11,7 @@ import 'application/web/produto_controller.dart';
 import 'application/web/user_controller.dart';
 import 'application/web/venda_controller.dart';
 import 'core/injections.dart';
+import 'core/middlewares/middlewares.dart';
 
 void main(List<String> arguments) async {
   final i = Injections.init();
@@ -24,8 +25,10 @@ void main(List<String> arguments) async {
       .add(i<UserController>().getHandler(isSecurity: true))
       .handler;
 
-  var handler =
-      Pipeline().addMiddleware(logRequests()).addHandler(cascadeHandler);
+  var handler = Pipeline()
+      .addMiddleware(logRequests())
+      .addMiddleware(Middlewares.cors)
+      .addHandler(cascadeHandler);
 
   shelf_io
       .serve(
